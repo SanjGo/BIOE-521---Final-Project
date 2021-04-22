@@ -1,9 +1,18 @@
 
+
 #include <Adafruit_CircuitPlayground.h>
 
 float tempC, tempF;
-bool leftButtonPressed;
-bool rightButtonPressed;
+// bool leftButtonPressed;
+// bool rightButtonPressed;
+
+//Color palette definitions
+static const uint32_t RED = 0xFF0000;
+static const uint32_t GREEN = 0x00FF00;
+static const uint32_t DARKBLUE = 0x0000FF;
+static const uint32_t PINK = 0xDC267F;
+static const uint32_t ORANGE = 0xD55E00;
+static const uint32_t LIGHTBLUE = 0x785EF0;
 
 void setup() {
   Serial.begin(9600);
@@ -14,86 +23,67 @@ void loop() {
   tempC = CircuitPlayground.temperature();
   tempF = CircuitPlayground.temperatureF();
   CircuitPlayground.clearPixels();
+ uint32_t COLORHOT, COLORGO, COLORCOLD;
+ 
+  delay(500);
+if(CircuitPlayground.slideSwitch()) {    // slide switch on "+" for color blind palette
+  COLORHOT = PINK ; 
+  COLORGO = ORANGE ; 
+  COLORCOLD = LIGHTBLUE ; 
+  }
+else {      // / slide switch on "+" for color blind palette
+  COLORHOT = RED ; 
+  COLORGO = GREEN ; 
+  COLORCOLD = DARKBLUE ;
+   
+  }
 
   Serial.print("tempC: ");
   Serial.print(tempC);
   Serial.print("  tempF: ");
   Serial.println(tempF);
   if (tempF > 79){
-      Serial.print(" OUCH! Drink is TOO HOT! (Red)\n"); 
-       CircuitPlayground.setPixelColor(5, 0xFF0000); //red
-       CircuitPlayground.setPixelColor(6, 0xFF0000); //red
-       CircuitPlayground.setPixelColor(7, 0xFF0000); //red
-       CircuitPlayground.setPixelColor(8, 0xFF0000); //red
-       CircuitPlayground.setPixelColor(9, 0xFF0000); //red   
-        
-       CircuitPlayground.setPixelColor(0, 0xDC267F); //pink
-       CircuitPlayground.setPixelColor(1, 0xDC267F); //pink
-       CircuitPlayground.setPixelColor(2, 0xDC267F); //pink
-       CircuitPlayground.setPixelColor(3, 0xDC267F); //pink
-       CircuitPlayground.setPixelColor(4, 0xDC267F); //pink
-       
-
+      Serial.print(" OUCH! Drink is TOO HOT!\n"); 
+       CircuitPlayground.setPixelColor(0, COLORHOT); 
+       CircuitPlayground.setPixelColor(1, COLORHOT); 
+       CircuitPlayground.setPixelColor(2, COLORHOT); 
+       CircuitPlayground.setPixelColor(3, COLORHOT); 
+       CircuitPlayground.setPixelColor(4, COLORHOT); 
+       CircuitPlayground.setPixelColor(5, COLORHOT); 
+       CircuitPlayground.setPixelColor(6, COLORHOT); 
+       CircuitPlayground.setPixelColor(7, COLORHOT); 
+       CircuitPlayground.setPixelColor(8, COLORHOT); 
+       CircuitPlayground.setPixelColor(9, COLORHOT); 
   }
   else if (tempF < 77){
-      Serial.print(" BRRR! Drink is COLD! (Blue)\n"); 
-       CircuitPlayground.setPixelColor(5, 0x0000FF);// dark blue
-       CircuitPlayground.setPixelColor(6, 0x0000FF);// dark blue
-       CircuitPlayground.setPixelColor(7, 0x0000FF);// dark blue
-       CircuitPlayground.setPixelColor(8, 0x0000FF);// dark blue
-       CircuitPlayground.setPixelColor(9, 0x0000FF);// dark blue
-        
-       CircuitPlayground.setPixelColor(0, 0x785EF0); //light purple
-       CircuitPlayground.setPixelColor(1, 0x785EF0); //light purple
-       CircuitPlayground.setPixelColor(2, 0x785EF0); //light purple
-       CircuitPlayground.setPixelColor(3, 0x785EF0); //light purple
-       CircuitPlayground.setPixelColor(4, 0x785EF0); //light purple
+      Serial.print(" BRRR! Drink is COLD!\n"); 
+       CircuitPlayground.setPixelColor(0, COLORCOLD); 
+       CircuitPlayground.setPixelColor(1, COLORCOLD); 
+       CircuitPlayground.setPixelColor(2, COLORCOLD); 
+       CircuitPlayground.setPixelColor(3, COLORCOLD); 
+       CircuitPlayground.setPixelColor(4, COLORCOLD); 
+       CircuitPlayground.setPixelColor(5, COLORCOLD); 
+       CircuitPlayground.setPixelColor(6, COLORCOLD); 
+       CircuitPlayground.setPixelColor(7, COLORCOLD); 
+       CircuitPlayground.setPixelColor(8, COLORCOLD); 
+       CircuitPlayground.setPixelColor(9, COLORCOLD); 
 
-     
   }
   else{
-      Serial.print(" OKAY! Drink is DRINKABLE! (Green)\n"); 
-       CircuitPlayground.setPixelColor(5, 0x00FF00); //green
-       CircuitPlayground.setPixelColor(6, 0x00FF00); //green
-       CircuitPlayground.setPixelColor(7, 0x00FF00); //green
-       CircuitPlayground.setPixelColor(8, 0x00FF00); //green
-       CircuitPlayground.setPixelColor(9, 0x00FF00); //green
-        
-       CircuitPlayground.setPixelColor(0, 0xFE6100); //orange
-       CircuitPlayground.setPixelColor(1, 0xFE6100); //orange
-       CircuitPlayground.setPixelColor(2, 0xFE6100); //orange
-       CircuitPlayground.setPixelColor(3, 0xFE6100); //orange
-       CircuitPlayground.setPixelColor(4, 0xFE6100); //orange
-
-
+      Serial.print(" OKAY! Drink is DRINKABLE!\n"); 
+       CircuitPlayground.setPixelColor(0, COLORGO); 
+       CircuitPlayground.setPixelColor(1, COLORGO); 
+       CircuitPlayground.setPixelColor(2, COLORGO); 
+       CircuitPlayground.setPixelColor(3, COLORGO); 
+       CircuitPlayground.setPixelColor(4, COLORGO); 
+       CircuitPlayground.setPixelColor(5, COLORGO); 
+       CircuitPlayground.setPixelColor(6, COLORGO); 
+       CircuitPlayground.setPixelColor(7, COLORGO); 
+       CircuitPlayground.setPixelColor(8, COLORGO); 
+       CircuitPlayground.setPixelColor(9, COLORGO); 
   }
   
-  delay(2000);
-
-  leftButtonPressed = CircuitPlayground.leftButton();
-  rightButtonPressed = CircuitPlayground.rightButton();
-  
-    if (leftButtonPressed) {
-       Serial.print("Left Button pressed - Color 1 palette activated  "); //Color blind palette
-        CircuitPlayground.setPixelColor(0, 0x648FFF); //Light blue
-        CircuitPlayground.setPixelColor(1, 0x785EF0); //light purple
-        CircuitPlayground.setPixelColor(2, 0xDC267F); //pink
-        CircuitPlayground.setPixelColor(3, 0xFE6100); //orange
-        CircuitPlayground.setPixelColor(4, 0xFFB000); //yellow
-  } else {
-  CircuitPlayground.clearPixels();
-  }
-
-  if (rightButtonPressed) {
-       Serial.print("Right Button pressed - Color 2 palette activated  ");
-       CircuitPlayground.setPixelColor(5, 0xFF0000); //red
-       CircuitPlayground.setPixelColor(6, 0x808000); //yellow
-       CircuitPlayground.setPixelColor(7, 0x00FF00); //green
-       CircuitPlayground.setPixelColor(8, 0x008080); //blue
-        CircuitPlayground.setPixelColor(9, 0x0000FF);// dark blue
-  } else {
-  CircuitPlayground.clearPixels();
-  }
- delay(1000); 
+  delay(3000);
+ 
 }
 
