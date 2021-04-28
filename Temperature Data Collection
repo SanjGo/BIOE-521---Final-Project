@@ -1,0 +1,23 @@
+#include <Adafruit_CircuitPlayground.h>
+
+float tempC, tempF, value;
+
+void setup() {
+  Serial.begin(9600);
+  CircuitPlayground.begin();
+ }
+
+void loop() {
+//  tempC = CircuitPlayground.temperature();
+  tempF = CircuitPlayground.temperatureF();
+  
+  value = CircuitPlayground.lightSensor(); // Light sensor triggers temperature detection
+  if (value < 300) {   // 300 value assumption for indoor lighting
+    Serial.print("Temperature_F:");
+    Serial.println(tempF);
+   } else{
+    Serial.println();
+   }
+  delay(1000);
+  
+}
